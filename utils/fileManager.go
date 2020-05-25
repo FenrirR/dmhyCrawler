@@ -35,7 +35,7 @@ func SaveList2Txt(data []string, path string) {
 	}
 
 	for _, line := range data {
-		line += "\n"
+		line += "\n\n"
 		_, err := file.WriteString(line)
 		if err != nil {
 			panic(fmt.Sprintf("write file %s error, %s", path, err))
@@ -62,8 +62,10 @@ func ReadTxt2Set(path string) (res map[string]bool) {
 		if err != nil && err != io.EOF {
 			panic(fmt.Sprintf("read file error: %s", err))
 		}
-		line = strings.TrimSuffix(line, "\n")
-		res[line] = true
+		line = strings.TrimRight(line, "\n")
+		if line != "" {
+			res[line] = true
+		}
 	}
 	return
 }

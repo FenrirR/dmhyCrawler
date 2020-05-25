@@ -25,7 +25,7 @@ func initPersistPipeline() *persistPipeline {
 func (p *persistPipeline) process(item Item) (abort bool) {
 	p.Lock()
 	defer p.Unlock()
-	path := resDir + item.Title
+	path := resDir + item.Title + ".txt"
 	utils.CreateFile(path)
 	utils.SaveList2Txt([]string{item.MagLink}, path)
 	return
@@ -43,7 +43,7 @@ func initDedupPipeline() *dedupPipeline {
 func (p *dedupPipeline) process(item Item) (abort bool) {
 	p.Lock()
 	defer p.Unlock()
-	path := histDir + item.Title
+	path := histDir + item.Title + ".txt"
 	utils.CreateFile(path)
 	histData := utils.ReadTxt2Set(path)
 
